@@ -62,7 +62,8 @@ RUN sed \
     -e "s|nexus-context-path=/|nexus-context-path=/\${NEXUS_CONTEXT}|g" \
     -i /opt/sonatype/nexus/etc/org.sonatype.nexus.cfg
 
-RUN useradd -r -u 200 -m -c "nexus role account" -d ${NEXUS_DATA} -s /bin/false nexus
+RUN groupadd nexus -g 1002\
+  && useradd -r -u 1002 -g nexus -m -c "nexus role account" -d ${NEXUS_DATA} -s /bin/false nexus
 
 VOLUME ${NEXUS_DATA}
 
